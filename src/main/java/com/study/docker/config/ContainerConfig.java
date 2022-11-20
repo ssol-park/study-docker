@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ContainerConfig {
 
-    @Value("${tomcat.ajp.protocol}")
-    private static String AJP_PROTOCOL;
+    @Value("${server.tomcat.ajp.protocol}")
+    private String ajpProtocol;
 
-    @Value("${tomcat.ajp.port}")
-    private static int AJP_PORT;
+    @Value("${server.tomcat.ajp.port}")
+    private int ajpPort;
 
     @Bean
     public ServletWebServerFactory servletContainer() {
@@ -26,12 +26,12 @@ public class ContainerConfig {
     }
 
     private Connector createAjpConnector() {
-        Connector ajpConnector = new Connector(AJP_PROTOCOL);
-        ajpConnector.setPort(AJP_PORT);
+        Connector ajpConnector = new Connector(ajpProtocol);
+        ajpConnector.setPort(ajpPort);
         ajpConnector.setSecure(false);
         ajpConnector.setAllowTrace(false);
         ajpConnector.setScheme("http");
-        ((AbstractAjpProtocol<?>) ajpConnector.getProtocolHandler()).setSecretRequired(false);
+        ((AbstractAjpProtocol) ajpConnector.getProtocolHandler()).setSecretRequired(false); // 해당 줄을 추가함
 
         return ajpConnector;
     }
