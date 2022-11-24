@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
+import javax.naming.SizeLimitExceededException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = MaxUploadSizeExceededException.class)
+    @ExceptionHandler(value = SizeLimitExceededException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseDto handleConflict() {
+    public ResponseDto sizeLimitExceededExceptionHandler() {
         return new ResponseDto(ResponseType.ERROR_MULTIPART_FILE_SIZE);
     }
 

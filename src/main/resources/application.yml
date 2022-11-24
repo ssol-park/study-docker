@@ -8,6 +8,7 @@ server:
       port: 8009
       enabled: true
 
+    max-swallow-size: 10MB
 
 
 
